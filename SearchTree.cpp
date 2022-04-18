@@ -154,19 +154,37 @@ SearchTree<T>*			SearchTree<T>::remove			()
 }
 
 template<class T>
-void SearchTree<T>::inorder			()const
-{
-	
+void 			SearchTree<T>::inorder			()const
+{				
+	if(this != nullptr)
+	{
+		Tree<T>::left->inorder();
+		std::cout<<Tree<T>::key<<" ";
+		Tree<T>::right->inorder();
+	}
+	std::cout<<std::endl;
 }
 
 template<class T>
-void SearchTree<T>::preorder		()const
+void 			SearchTree<T>::preorder		()const
 {
-
+			if(this != nullptr)
+			{
+				std::cout<<Tree<T>::key<<" ";
+				Tree<T>::left->preorder();
+				Tree<T>::right->preorder();
+			}
+			std::cout<<std::endl;
 }
 template<class T>
 void			SearchTree<T>::postorder		()const
 {
-
+	if(this != nullptr)
+	{
+		Tree<T>::left->postorder();
+		Tree<T>::right->postorder();
+		std::cout<<Tree<T>::key<<" ";
+	}
+	std::cout<<std::endl;
 }
 	

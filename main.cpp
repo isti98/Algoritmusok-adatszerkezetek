@@ -26,6 +26,15 @@ using namespace std;
 
 int main()
 {
+	SearchTree<int>* st = new SearchTree<int>();
+	int lista[]={5, 6,5,7,8,8,34,2,34,5,2,36,567,78,2,1,55};
+	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
+	{
+		st->insert(lista[i]);
+	}
+	st->inorder();
+	st->preorder();
+	st->postorder();
 	
 	//TODO
 }
