@@ -4,41 +4,41 @@
 //Keresőfa adatszerkezet implemantcáija
 
 template<class T>
-SearchTree<T>*			SearchTree<T>::max			()const
+Tree<T>*			SearchTree<T>::max			()const
 {
-	SearchTree<T>* current=this;
-	while(current->right!=nullptr)
+	const Tree<T>* current=this;
+	while(current->getRight()!=nullptr)
 	{
-		current=current->right;
+		current=current->getRight();
 	}
-	return current;
+	return const_cast<Tree<T>*>(current);
 }
 template<class T>
-SearchTree<T>*			SearchTree<T>::min			()const
+Tree<T>*			SearchTree<T>::min			()const
 {
-	SearchTree<T>* current=this;
-	while(current->left!=nullptr)
+	const Tree<T>* current=this;
+	while(current->getLeft()!=nullptr)
 	{
-		current=current->left;
+		current=current->getLeft();
 	}
-	return current;
+	return const_cast<Tree<T>*>(current);
 }
 template<class T>
 void 				SearchTree<T>::insert			(const T& k)
 {
-	SearchTree<T>* pa_cur = nullptr;
-	SearchTree<T>* current = this;
+	Tree<T>* pa_cur = nullptr;
+	Tree<T>* current = this;
 	while( current != nullptr )
 	{
 		pa_cur=current;
 		if(current->getKey()< k)
 		{
-			current=current->right;
+			current=current->getRight();
 		}else{
-			current=current->left;
+			current=current->getLeft();
 		}
 	}
-	SearchTree<T>* newNode = new SearchTree<T>(k, nullptr, nullptr, pa_cur);
+	Tree<T>* newNode = new SearchTree<T>(k, nullptr, nullptr, pa_cur);
 	if(pa_cur==nullptr)
 	{
 		Tree<T>::key=k;
@@ -54,9 +54,9 @@ void 				SearchTree<T>::insert			(const T& k)
 	}
 }
 template<class T>
-SearchTree<T>*			SearchTree<T>::search			(const T& k)const
+Tree<T>*			SearchTree<T>::search			(const T& k)const
 {
-	SearchTree<T>* result;
+	const Tree<T>* result;
 	if(this==nullptr || Tree<T>::key==k)
 	{
 		result = this;
@@ -66,56 +66,56 @@ SearchTree<T>*			SearchTree<T>::search			(const T& k)const
 	}else{
 		result = Tree<T>::right->search(k);
 	}
-	return result;
+	return const_cast<Tree<T>*>(result);
 }
 template<class T>
-SearchTree<T>*			SearchTree<T>::search_iter		(const T& k)const
+Tree<T>*			SearchTree<T>::search_iter		(const T& k)const
 {
-	SearchTree<T>* current=this;
-	while(current!= nullptr && current->key!=k)
+	const Tree<T>* current=this;
+	while(current!= nullptr && current->getKey()!=k)
 	{
-		if(k<current->key)
+		if(k<current->getKey())
 		{
-			current=current->left;
+			current=current->getLeft();
 		}else{
-			current=current->right;
+			current=current->getRight();
 		}
 	}
-	return current;
+	return const_cast<Tree<T>*>(current);
 }
 template<class T>
-SearchTree<T>*			SearchTree<T>::root			()const
+Tree<T>*			SearchTree<T>::root			()const
 {
-	SearchTree<T>* current;
-	while(current->parent!=nullptr)
+	Tree<T>* current;
+	while(current->getParent()!=nullptr)
 	{
-		current=current->parent;
+		current=current->getParent();
 	}
-	return current;
+	return const_cast<Tree<T>*>(current);
 }
 template<class T>
-SearchTree<T>*			SearchTree<T>::next			()const
+Tree<T>*			SearchTree<T>::next			()const
 {
-	SearchTree<T>* result;
+	Tree<T>* result;
 	if(Tree<T>::right != nullptr)
 	{
 		result=Tree<T>::right->min();
 	}else{
-		SearchTree<T> current=Tree<T>::parent;
-		while(current!=nullptr && current->right==result)
+		Tree<T>* current=Tree<T>::parent;
+		while(current!=nullptr && current->getRight()==result)
 		{
 			result=current;
-			current=current->parent;
+			current=current->getParent();
 		}
 	}
-	return result;
+	return const_cast<Tree<T>*>(result);
 }
 
 template<class T>
-SearchTree<T>*			SearchTree<T>::remove			()
+Tree<T>*			SearchTree<T>::remove			()
 {
-	SearchTree<T>* current;
-	SearchTree<T>* pa_cur;
+	Tree<T>* current;
+	Tree<T>* pa_cur;
 	if( Tree<T>::left == nullptr && Tree<T>::right == nullptr )
 	{
 		pa_cur=this;
@@ -135,7 +135,7 @@ SearchTree<T>*			SearchTree<T>::remove			()
 	}
 	if(pa_cur->getParent()==nullptr)
 	{
-		SearchTree<T> cur=root;
+		Tree<T>* cur=root();
 	}else
 	{ 
 		if( pa_cur==pa_cur->getParent()->getLeft())
@@ -150,7 +150,7 @@ SearchTree<T>*			SearchTree<T>::remove			()
 	{
 		current->setKey(pa_cur->getKey());
 	}
-	return pa_cur;
+	return const_cast<Tree<T>*>(pa_cur);
 }
 
 template<class T>

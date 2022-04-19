@@ -10,9 +10,9 @@
 #include "Queue.h"
 #include "PrQueue.h"
 #include "TwoWayList.h"
-#include "Tree.h"
 #include "Heap.cpp"
-#include  "SearchTree.cpp"
+#include "SearchTree.cpp"
+#include "RaceTree.cpp"
 //#include "Map.h"
 #include <map>
 
@@ -26,15 +26,21 @@ using namespace std;
 
 int main()
 {
-	SearchTree<int>* st = new SearchTree<int>();
+	int counter=0;
+	SearchTree<int> st;
 	int lista[]={5, 6,5,7,8,8,34,2,34,5,2,36,567,78,2,1,55};
+	cout<<counter++<<endl;
 	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
 	{
-		st->insert(lista[i]);
+		st.insert(lista[i]);
 	}
-	st->inorder();
-	st->preorder();
-	st->postorder();
+	cout<<counter++<<endl;
+	st.inorder();
+	cout<<counter++<<endl;
+	st.preorder();
+	cout<<counter++<<endl;
+	st.postorder();
+	cout<<counter++<<endl;
 	
 	//TODO
 }
