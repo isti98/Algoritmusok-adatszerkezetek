@@ -27,20 +27,28 @@ using namespace std;
 int main()
 {
 	int counter=0;
-	SearchTree<int> st;
-	int lista[]={5, 6,5,7,8,8,34,2,34,5,2,36,567,78,2,1,55};
+	int cc2=0;
+	
+	SearchTree<int> st(5,nullptr,nullptr,nullptr);
+	int lista[]={1,7,8,4,4,4,4,3,3,3,9,0,10,2,2};
 	cout<<counter++<<endl;
 	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
 	{
 		st.insert(lista[i]);
+		cout<<cc2++<<endl;
 	}
-	cout<<counter++<<endl;
-	st.inorder();
-	cout<<counter++<<endl;
+	st.search(4)->remove();
+	st.search(4)->remove();
+	st.search(4)->remove();
 	st.preorder();
-	cout<<counter++<<endl;
+	cout<<endl;
+	st.search(3)->remove();
+	st.search(3)->remove();
+	st.inorder();
+	cout<<endl;
+	st.search(2)->remove();
 	st.postorder();
-	cout<<counter++<<endl;
+	cout<<endl;
 	
 	//TODO
 }

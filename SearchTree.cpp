@@ -31,40 +31,56 @@ void 				SearchTree<T>::insert			(const T& k)
 	while( current != nullptr )
 	{
 		pa_cur=current;
-		if(current->getKey()< k)
+		if(current->getKey()<k)
 		{
 			current=current->getRight();
 		}else{
 			current=current->getLeft();
 		}
 	}
-	Tree<T>* newNode = new SearchTree<T>(k, nullptr, nullptr, pa_cur);
 	if(pa_cur==nullptr)
 	{
 		Tree<T>::key=k;
 	}else
 	{
-		if(k<=pa_cur->getKey())
-		{
-			pa_cur->setLeft(newNode);	
-		}else
+		Tree<T>* newNode = new SearchTree<T>(k, nullptr, nullptr, pa_cur);
+		if(k>pa_cur->getKey())
 		{
 			pa_cur->setRight(newNode);	
+		}else
+		{
+			pa_cur->setLeft(newNode);
 		}
 	}
 }
 template<class T>
 Tree<T>*			SearchTree<T>::search			(const T& k)const
 {
+	static int cc=0;
+	std::cout<<"Search"<<std::endl;
 	const Tree<T>* result;
-	if(this==nullptr || Tree<T>::key==k)
-	{
+	if( Tree<T>::key==k)
+	{	
+		std::cout<<cc++<<" key "<<std::endl;
 		result = this;
-	}else if(k<Tree<T>::key) 
+	}
+	else if(k>Tree<T>::key) 
 	{
-		result = Tree<T>::left->search(k);
+		if(Tree<T>::right!=nullptr)
+		{
+			std::cout<<cc++<<" right "<<std::endl;
+			result = Tree<T>::right->search(k);
+		}else{
+			result = nullptr;
+		}
 	}else{
-		result = Tree<T>::right->search(k);
+		if(Tree<T>::left!=nullptr)
+		{
+			std::cout<<cc++<<" left "<<std::endl;
+			result = Tree<T>::left->search(k);
+		}else{
+			result = nullptr;
+		}
 	}
 	return const_cast<Tree<T>*>(result);
 }
@@ -74,11 +90,11 @@ Tree<T>*			SearchTree<T>::search_iter		(const T& k)const
 	const Tree<T>* current=this;
 	while(current!= nullptr && current->getKey()!=k)
 	{
-		if(k<current->getKey())
+		if(k>current->getKey())
 		{
-			current=current->getLeft();
-		}else{
 			current=current->getRight();
+		}else{
+			current=current->getLeft();
 		}
 	}
 	return const_cast<Tree<T>*>(current);
@@ -112,79 +128,65 @@ Tree<T>*			SearchTree<T>::next			()const
 }
 
 template<class T>
-Tree<T>*			SearchTree<T>::remove			()
+void				SearchTree<T>::remove			()
 {
-	Tree<T>* current;
-	Tree<T>* pa_cur;
-	if( Tree<T>::left == nullptr && Tree<T>::right == nullptr )
+	Tree<T>* move=nullptr;
+	if(Tree<T>::left!=nullptr && Tree<T>::right!=nullptr )
 	{
-		pa_cur=this;
-	}else
-	{
-		pa_cur=next();
-	}
-	if(pa_cur->getLeft()!=nullptr)
-	{
-		current=pa_cur->getLeft();
-	}else{
-		current=pa_cur->getRight();
-	}
-	if(current!=nullptr)
-	{
-		current->setParent(pa_cur->getParent());
-	}
-	if(pa_cur->getParent()==nullptr)
-	{
-		Tree<T>* cur=root();
-	}else
-	{ 
-		if( pa_cur==pa_cur->getParent()->getLeft())
+		move=next();
+		if(move==move->Tree<T>::getParent()->Tree<T>::getLeft())
 		{
-			pa_cur->getParent()->setLeft(current);
-		}else
-		{
-			pa_cur->getParent()->setRight(current);
+			move->Tree<T>::getParent()->Tree<T>::setLeft(move->Tree<T>::getRight());
+		}else{
+			move->Tree<T>::getParent()->Tree<T>::setRight(move->Tree<T>::getRight());
 		}
+		move->Tree<T>::getRight()->Tree<T>::setParent(move->Tree<T>::getParent());
+		Tree<T>::setKey(move->Tree<T>::getKey());
+		delete move;
 	}
-	if(pa_cur!=current)
+	else if(Tree<T>::left != nullptr){
+		move=Tree<T>::left;
+		move->Tree<T>::setParent(Tree<T>::parent);
+		Tree<T>::parent->Tree<T>::setLeft(move);
+		delete this;
+		
+	}else if(Tree<T>::right!=nullptr)
 	{
-		current->setKey(pa_cur->getKey());
+		move=Tree<T>::right;
+		move->Tree<T>::setParent(Tree<T>::parent);
+		Tree<T>::parent->Tree<T>::setRight(move);
+		delete this;
+	}else{
+		if(this == Tree<T>::parent->getLeft())
+		{
+			Tree<T>::parent->setLeft(nullptr);
+		}else{
+			Tree<T>::parent->setRight(nullptr);
+		}
+		delete this;
 	}
-	return const_cast<Tree<T>*>(pa_cur);
 }
 
 template<class T>
 void 			SearchTree<T>::inorder			()const
-{				
-	if(this != nullptr)
-	{
-		Tree<T>::left->inorder();
-		std::cout<<Tree<T>::key<<" ";
-		Tree<T>::right->inorder();
-	}
-	std::cout<<std::endl;
+{			
+	if(Tree<T>::left!=nullptr)Tree<T>::left->inorder();
+	std::cout<<Tree<T>::key<<" ";
+	if(Tree<T>::right!=nullptr)Tree<T>::right->inorder();
 }
 
 template<class T>
 void 			SearchTree<T>::preorder		()const
 {
-			if(this != nullptr)
-			{
-				std::cout<<Tree<T>::key<<" ";
-				Tree<T>::left->preorder();
-				Tree<T>::right->preorder();
-			}
-			std::cout<<std::endl;
+	std::cout<<Tree<T>::key<<" ";
+	if(Tree<T>::left!=nullptr)Tree<T>::left->preorder();
+	if(Tree<T>::right!=nullptr)Tree<T>::right->preorder();		
 }
 template<class T>
 void			SearchTree<T>::postorder		()const
 {
-	if(this != nullptr)
-	{
-		Tree<T>::left->postorder();
-		Tree<T>::right->postorder();
-		std::cout<<Tree<T>::key<<" ";
-	}
-	std::cout<<std::endl;
+	if(Tree<T>::left!=nullptr)Tree<T>::left->postorder();
+	if(Tree<T>::right!=nullptr)Tree<T>::right->postorder();
+	std::cout<<Tree<T>::key<<" ";
 }
 	

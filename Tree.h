@@ -29,7 +29,7 @@ class Tree
 		virtual void 			insert			(const T& k)=0;
 		virtual Tree<T>*		search			(const T& k)const=0;
 		virtual Tree<T>*		search_iter		(const T& k)const=0;
-		virtual Tree<T>*		remove			()=0;	
+		virtual void			remove			()=0;	
 		virtual void			inorder		()const=0;
 		virtual void			preorder		()const=0;
 		virtual void			postorder		()const=0;
@@ -55,7 +55,7 @@ template<class T>
 class SearchTree : public Tree<T>
 {
 	public:
-					SearchTree		(){}
+					SearchTree		(){Tree<T>::setLeft(nullptr); Tree<T>::setRight(nullptr); Tree<T>::setParent(nullptr);}
 					SearchTree		(const T& k, Tree<T>* const l, Tree<T>* const r, Tree<T>* const p){Tree<T>::setKey(k); Tree<T>::setLeft(l); Tree<T>::setRight(r); Tree<T>::setParent(p);}
 					//SearchTree		(const T& k, Tree<T>* const l, Tree<T>* const r, Tree<T>* const p): Tree<T>::parent(p), Tree<T>::left(l), Tree<T>::right(r), Tree<T>::key(k){}
 		
@@ -66,7 +66,7 @@ class SearchTree : public Tree<T>
 		Tree<T>*		search_iter		(const T& k)const;
 		void 			insert			(const T& k) override;
 		Tree<T>*		search			(const T& k)const override;
-		Tree<T>*		remove			() override;
+		void			remove			() override;
 		void			inorder		()const override;
 		void			preorder		()const override;
 		void			postorder		()const override;
@@ -85,13 +85,14 @@ class Heap : public Tree<T>
 					Heap			(){}
 					Heap			(const T& k, Heap<T>* l, Heap<T>* r, Heap<T>* p): Tree<T>::parent(p), Tree<T>::left(l), Tree<T>::right(r), Tree<T>::key(k){}
 		
-		Heap<T>*		root			()const override;
-		Heap<T>*		next			()const override;
-		Heap<T>*		max			()const override;
-		Heap<T>*		min			()const override;
+		Tree<T>*		root			()const override;
+		Tree<T>*		next			()const override;
+		Tree<T>*		max			()const override;
+		Tree<T>*		min			()const override;
+		Tree<T>*		search_iter		(const T& k)const;
 		void 			insert			(const T& k) override;
-		Heap<T>*		search			(const T& k)const override;
-		void			remove			(const T& k) override;	
+		Tree<T>*		search			(const T& k)const override;
+		void			remove			() override;
 		void			inorder		()const override;
 		void			preorder		()const override;
 		void			postorder		()const override;
@@ -108,13 +109,14 @@ class RaceTree : public Tree<T>
 						RaceTree		(){}
 						RaceTree		(const T& k, RaceTree<T>* l, RaceTree<T>* r, RaceTree<T>* p): Tree<T>::parent(p), Tree<T>::left(l), Tree<T>::right(r), Tree<T>::key(k){}
 
-		RaceTree<T>*		root			()const override;
-		RaceTree<T>*		next			()const override;
-		RaceTree<T>*		max			()const override;
-		RaceTree<T>*		min			()const override;
+		Tree<T>*		root			()const override;
+		Tree<T>*		next			()const override;
+		Tree<T>*		max			()const override;
+		Tree<T>*		min			()const override;
+		Tree<T>*		search_iter		(const T& k)const;
 		void 			insert			(const T& k) override;
-		RaceTree<T>*		search			(const T& k)const override;
-		void			remove			(const T& k) override;
+		Tree<T>*		search			(const T& k)const override;
+		void 			remove			() override;
 		void			inorder		()const override;
 		void			preorder		()const override;
 		void			postorder		()const override;
