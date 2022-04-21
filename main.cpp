@@ -25,30 +25,29 @@ using namespace std;
 using namespace std;
 
 int main()
-{
-	int counter=0;
-	int cc2=0;
-	
+{	
 	SearchTree<int> st(5,nullptr,nullptr,nullptr);
-	int lista[]={1,7,8,4,4,4,4,3,3,3,9,0,10,2,2};
-	cout<<counter++<<endl;
+	int lista[]={2,0,1,3,4,8,7,6,9,10};
 	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
 	{
 		st.insert(lista[i]);
-		cout<<cc2++<<endl;
 	}
-	st.search(4)->remove();
-	st.search(4)->remove();
+	int c = 0;
+	cout<<"test - "<<c++<<endl;
 	st.search(4)->remove();
 	st.preorder();
 	cout<<endl;
+	cout<<"test - "<<c++<<endl;
 	st.search(3)->remove();
-	st.search(3)->remove();
+	cout<<"test - "<<c++<<endl;
 	st.inorder();
 	cout<<endl;
+	cout<<"test - "<<c++<<endl;
 	st.search(2)->remove();
+	cout<<"test - "<<c++<<endl;
 	st.postorder();
 	cout<<endl;
+	cout<<"test - "<<c++<<endl;
 	
 	//TODO
 }
@@ -57,6 +56,99 @@ int main()
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+//SEARCHTREE TESTING
+
+TEST_CASE("SEARCHTREE")
+{
+	SECTION("set")
+	{
+		SECTION("not nullptr")
+		{
+			SearchTree<int> t1(10,nullptr, nullptr ,nullptr);
+			SearchTree<int> t2(0, &t1, &t1 , &t1);
+			t1.set(&t2);
+			CHECK(t1.getRight()==&t1);
+			CHECK(t1.getLeft()==&t1);
+			CHECK(t1.getParent()==&t1);
+			CHECK(t1.getKey()==0);
+		}
+		SECTION("nullptr")
+		{
+			SearchTree<int> t1(10,nullptr, nullptr ,nullptr);
+			SearchTree<int>* t2=nullptr;
+			CHECK_THROWS(t1.set(t2));
+		}
+	}
+	
+	int lista[] =  { 3, 10, 2, 7, 6, 9, 1, 4, 0, 8};
+	SearchTree<int> st(5, nullptr, nullptr, nullptr);
+	
+	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
+	{
+		st.insert(lista[i]);
+	}
+	
+	SECTION("insert + search + search_iter")
+	{
+		int result[] = {5,5,3,10,7,7,2,3,1,7};
+		bool leftChild[] = {true , false , true , true , true , false , true , false , true , false};
+		for(int i=0; i<<sizeof(lista)/sizeof(int); i++)
+		{
+			Tree<int>* found =st.search(lista[i]);
+			CHECK(found->getParent()->getKey()==result[i]);
+			if(leftChild[i]){
+				CHECK(found->getParent()->getLeft() == found);
+			}else{
+				CHECK(found->getParent()->getRight() == found);
+			}
+		}
+		for(int i=0; i<<sizeof(lista)/sizeof(int); i++)
+		{
+			Tree<int>* found =st.search_iter(lista[i]);
+			CHECK(found->getParent()->getKey()==result[i]);
+			if(leftChild[i]){
+				CHECK(found->getParent()->getLeft() == found);
+			}else{
+				CHECK(found->getParent()->getRight() == found);
+			}
+		}
+	}
+	SECTION("min")
+	{
+		CHECK(st.min()->getKey()==0);
+	}
+	SECTION("max")
+	{
+		CHECK(st.max()->getKey()==10);
+	}
+	SECTION("root")
+	{
+		CHECK(st.min()->root()->getKey()==5);
+		CHECK(st.max()->root()->getKey()==5);
+	}
+	SECTION("next")
+	{
+		for(int i=0; i<sizeof(lista)/sizeof(int); i++)
+		{
+			CHECK(st.search(i)->next()->getKey()==i+1);
+		}
+	}
+	SECTION("remove")
+	{
+		for(int i=0; i<sizeof(lista)/sizeof(int); i++)
+		{
+			
+			Tree<int>* del=st.search(lista[i]);
+			del->remove();
+			st.inorder();
+			cout<<endl;
+		}
+	}
+}
+
+
+
+//TWO WAY NODE TESTING
 TEST_CASE("TwoWayNode")
 {
 	TwoWayNode<int> twn1(10,nullptr,nullptr);

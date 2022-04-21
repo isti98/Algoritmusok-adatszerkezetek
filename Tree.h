@@ -10,7 +10,9 @@ template<class T>
 class Tree
 {
 	public:					
-		typedef enum Exception{EMPTYTREE}Exception;
+						
+						Tree			(){}
+		typedef enum Exception{EMPTYTREE,NULLPTR}Exception;
 		
 		T				getKey			()const{return key;}
 		Tree<T>*			getParent		()const{return parent;}
@@ -20,7 +22,7 @@ class Tree
 		void				setParent		(Tree<T>* const p){parent=p;}
 		void 				setLeft		(Tree<T>* const l){left=l;}
 		void 				setRight		(Tree<T>* const r){right=r;}
-		void 				operator=		(const Tree<T>& t1);
+		void 				set			(const Tree<T>* const t1);
 		
 		virtual Tree<T>*		root			()const=0;
 		virtual Tree<T>*		next			()const=0;
@@ -43,12 +45,17 @@ class Tree
 };
 
 template<class T>
-void 				Tree<T>::operator=		(const Tree<T>& t1)
+void			Tree<T>::set		(const Tree<T>* const  t1)
 {
-	setRight(t1->getRight());
-	setLeft(t1->getLeft());
-	setParent(t1->getParent());
-	setKey(t1->getKey()); 
+	if(t1!=nullptr)
+	{
+		setRight(t1->getRight());
+		setLeft(t1->getLeft());
+		setParent(t1->getParent());
+		setKey(t1->getKey()); 
+	}else{
+		throw Exception::NULLPTR;
+	}
 }
 
 template<class T>
