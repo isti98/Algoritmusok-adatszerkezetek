@@ -28,7 +28,7 @@ void 				SearchTree<T>::insert			(const T& k)
 {
 	if(Tree<T>::empty)
 	{
-		Tree<T>::empty==false;
+		Tree<T>::empty=false;
 		Tree<T>::key=k;
 	}else
 	{

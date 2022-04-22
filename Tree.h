@@ -118,7 +118,6 @@ class Heap : public Tree<T>
 		
 					~Heap			(){};
 	private:
-		
 };
 
 template<class T>

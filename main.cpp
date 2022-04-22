@@ -58,8 +58,8 @@ TEST_CASE("SEARCHTREE")
 		}
 	}
 	
-	int lista[] =  { 3, 10, 2, 7, 6, 9, 1, 4, 0, 8};
-	SearchTree<int> st(5, nullptr, nullptr, nullptr);
+	int lista[] =  {5, 3, 10, 2, 7, 6, 9, 1, 4, 0, 8};
+	SearchTree<int> st;
 	
 	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
 	{
@@ -107,18 +107,19 @@ TEST_CASE("SEARCHTREE")
 	}
 	SECTION("next")
 	{
-		for(int i=0; i<sizeof(lista)/sizeof(int); i++)
+		for(int i=0; i<sizeof(lista)/sizeof(int)-1; i++)
 		{
 			CHECK(st.search(i)->next()->getKey()==i+1);
 		}
 	}
 	SECTION("remove")
 	{
-		for(int i=0; i<sizeof(lista)/sizeof(int); i++)
+		st.inorder();
+		cout<<endl;
+		for(int i=0; !st.isEmpty(); i++ )
 		{
-			
-			Tree<int>* del=st.search(lista[i]);
-			del->remove();
+			cout<<"removed item: "<<lista[i]<<endl;
+			st.search(lista[i])->remove();
 			st.inorder();
 			cout<<endl;
 		}
