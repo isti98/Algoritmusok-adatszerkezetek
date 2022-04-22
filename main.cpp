@@ -19,36 +19,14 @@
 
 using namespace std;
 
-#define NORMALMODE
+//#define NORMALMODE
 #ifdef NORMALMODE
 
 using namespace std;
 
 int main()
 {	
-	SearchTree<int> st(5,nullptr,nullptr,nullptr);
-	int lista[]={2,0,1,3,4,8,7,6,9,10};
-	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
-	{
-		st.insert(lista[i]);
-	}
-	int c = 0;
-	cout<<"test - "<<c++<<endl;
-	st.search(4)->remove();
-	st.preorder();
-	cout<<endl;
-	cout<<"test - "<<c++<<endl;
-	st.search(3)->remove();
-	cout<<"test - "<<c++<<endl;
-	st.inorder();
-	cout<<endl;
-	cout<<"test - "<<c++<<endl;
-	st.search(2)->remove();
-	cout<<"test - "<<c++<<endl;
-	st.postorder();
-	cout<<endl;
-	cout<<"test - "<<c++<<endl;
-	
+
 	//TODO
 }
 
@@ -92,6 +70,7 @@ TEST_CASE("SEARCHTREE")
 	{
 		int result[] = {5,5,3,10,7,7,2,3,1,7};
 		bool leftChild[] = {true , false , true , true , true , false , true , false , true , false};
+		
 		for(int i=0; i<<sizeof(lista)/sizeof(int); i++)
 		{
 			Tree<int>* found =st.search(lista[i]);

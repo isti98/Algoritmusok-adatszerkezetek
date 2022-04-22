@@ -26,30 +26,37 @@ Tree<T>*			SearchTree<T>::min			()const
 template<class T>
 void 				SearchTree<T>::insert			(const T& k)
 {
-	Tree<T>* pa_cur = nullptr;
-	Tree<T>* current = this;
-	while( current != nullptr )
+	if(Tree<T>::empty)
 	{
-		pa_cur=current;
-		if(current->getKey()<k)
-		{
-			current=current->getRight();
-		}else{
-			current=current->getLeft();
-		}
-	}
-	if(pa_cur==nullptr)
-	{
+		Tree<T>::empty==false;
 		Tree<T>::key=k;
 	}else
 	{
-		Tree<T>* newNode = new SearchTree<T>(k, nullptr, nullptr, pa_cur);
-		if(k>pa_cur->getKey())
+		Tree<T>* pa_cur = nullptr;
+		Tree<T>* current = this;
+		while( current != nullptr )
 		{
-			pa_cur->setRight(newNode);	
+			pa_cur=current;
+			if(current->getKey()<k)
+			{
+				current=current->getRight();
+			}else{
+				current=current->getLeft();
+			}
+		}
+		if(pa_cur==nullptr)
+		{
+			Tree<T>::key=k;
 		}else
 		{
-			pa_cur->setLeft(newNode);
+			Tree<T>* newNode = new SearchTree<T>(k, nullptr, nullptr, pa_cur);
+			if(k>pa_cur->getKey())
+			{
+				pa_cur->setRight(newNode);	
+			}else
+			{
+				pa_cur->setLeft(newNode);
+			}
 		}
 	}
 }
@@ -125,7 +132,87 @@ Tree<T>*			SearchTree<T>::next			()const
 template<class T>
 void				SearchTree<T>::remove			()
 {
-	
+	if(Tree<T>::parent == nullptr )
+	{
+		if(Tree<T>::right == nullptr && Tree<T>::left == nullptr)
+		{
+			Tree<T>::empty=true;
+		}
+		else if(Tree<T>::right != nullptr && Tree<T>::left != nullptr)
+		{
+			Tree<T>* nextNode=next();
+			Tree<T>* nextParent=nextNode->getParent();
+			if(nextNode->getRight()!= nullptr)
+			{
+				nextNode->getRight()->setParent(nextParent);
+			}
+			if(nextParent->getRight() == nextNode)
+			{
+				nextParent->setRight(nextNode->getRight());
+			}else{
+				nextParent->setLeft(nextNode->getRight());
+			}
+			
+			Tree<T>::key=nextNode->Tree<T>::getKey();
+			delete nextNode;
+				
+		}else if(Tree<T>::left == nullptr)
+		{
+			Tree<T>* rightNode=Tree<T>::right;
+			Tree<T>::set(rightNode);
+			delete rightNode;
+		}else{
+			Tree<T>* leftNode=Tree<T>::left;
+			Tree<T>::set(leftNode);
+			delete leftNode;
+		}
+		
+	}else{
+		if(Tree<T>::right!=nullptr && Tree<T>::left!=nullptr)
+		{
+			Tree<T>* nextNode=next();
+			Tree<T>* nextParent=nextNode->getParent();
+			if(nextNode->getRight()!= nullptr)
+			{
+				nextNode->getRight()->setParent(nextParent);
+			}
+			if(nextParent->getRight() == nextNode)
+			{
+				nextParent->setRight(nextNode->getRight());
+			}else{
+				nextParent->setLeft(nextNode->getRight());
+			}
+			
+			Tree<T>::key=nextNode->Tree<T>::getKey();
+			delete nextNode;	
+			
+		}else if(Tree<T>::left==nullptr)
+		{
+			if(this == Tree<T>::parent->getRight())
+			{
+				Tree<T>::parent->setRight(Tree<T>::right);
+				if(Tree<T>::right!= nullptr)Tree<T>::right->setParent(Tree<T>::parent);
+			}else
+			{
+				Tree<T>::parent->setLeft(Tree<T>::right);
+				if(Tree<T>::left!= nullptr)Tree<T>::right->setParent(Tree<T>::parent);
+			}
+			
+		}else
+		{
+			if(this == Tree<T>::parent->getRight())
+			{
+				Tree<T>::parent->setRight(Tree<T>::left);
+				Tree<T>::left->setParent(Tree<T>::parent);
+			}else
+			{
+				Tree<T>::parent->setLeft(Tree<T>::left);
+				Tree<T>::left->setParent(Tree<T>::parent);
+			}
+			delete this;
+		
+		}
+	}
 }
 
 template<class T>
