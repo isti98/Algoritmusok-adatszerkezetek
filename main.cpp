@@ -12,7 +12,7 @@
 #include "TwoWayList.h"
 #include "Vector.h"
 //#include "Heap.cpp"
-//#include "SearchTree.cpp"
+#include "SearchTree.cpp"
 #include "RaceTree.cpp"
 //#include "Map.h"
 #include <map>
@@ -20,33 +20,14 @@
 
 using namespace std;
 
-#define NORMALMODE
+//#define NORMALMODE
 #ifdef NORMALMODE
 
 using namespace std;
 
 int main()
 {	
-	Vector<int> v;
-	int lista[]={5, 3, 10, 2, 7, 6, 9, 1, 4, 0, 8};
-	for(int i=0; i<sizeof(lista)/sizeof(int) ; i++)
-	{
-		v.add(lista[i], i);
-	}
-	v.remove(4);
-	v.add(444,4);
-	v.remove(7);
-	v.add(777,7);
-	v.remove(v.getSize()-1);
-	v.add(1000,v.getSize());
-	v.remove(0);
-	v.add(0,0);
-	cout<<v.getSize()<<endl;
-	for(int i=0; i<v.getSize(); i++)
-	{
-		cout<<v[i]<<" ";
-	}
-	cout<<endl;
+
 	//TODO
 }
 
@@ -81,7 +62,7 @@ TEST_CASE("SEARCHTREE")
 	int lista[] =  {5, 3, 10, 2, 7, 6, 9, 1, 4, 0, 8};
 	SearchTree<int> st;
 	
-	for(int i=0; i<v.getSize(); i++)
+	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
 	{
 		st.insert(lista[i]);
 	}

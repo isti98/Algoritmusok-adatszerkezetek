@@ -1,7 +1,30 @@
 
 #include "Tree.h"
 
-//Keresőfa adatszerkezet implemantcáija
+//Keresőfa adatszerkezet implemantciója
+
+template<class T>
+class SearchTree : public Tree<T>
+{
+	public:
+					SearchTree		(){Tree<T>::setLeft(nullptr); Tree<T>::setRight(nullptr);Tree<T>::empty=true;Tree<T>::setParent(nullptr);}
+					SearchTree		(const T& k, Tree<T>* const l, Tree<T>* const r, Tree<T>* const p){Tree<T>::setKey(k); Tree<T>::setLeft(l); Tree<T>::setRight(r); Tree<T>::setParent(p);Tree<T>::empty=false;}
+					//SearchTree		(const T& k, Tree<T>* const l, Tree<T>* const r, Tree<T>* const p): Tree<T>::parent(p), Tree<T>::left(l), Tree<T>::right(r), Tree<T>::key(k){}
+		
+		Tree<T>*		next			()const override;
+		Tree<T>*		max			()const override;
+		Tree<T>*		min			()const override;
+		Tree<T>*		search_iter		(const T& k)const;
+		void 			insert			(const T& k) override;
+		Tree<T>*		search			(const T& k)const override;
+		void			remove			() override;
+		
+		
+		 			~SearchTree		(){};
+	protected:
+	
+	private:
+};
 
 template<class T>
 Tree<T>*			SearchTree<T>::max			()const
@@ -98,16 +121,6 @@ Tree<T>*			SearchTree<T>::search_iter		(const T& k)const
 		}else{
 			current=current->getLeft();
 		}
-	}
-	return const_cast<Tree<T>*>(current);
-}
-template<class T>
-Tree<T>*			SearchTree<T>::root			()const
-{
-	Tree<T>* current;
-	while(current->getParent()!=nullptr)
-	{
-		current=current->getParent();
 	}
 	return const_cast<Tree<T>*>(current);
 }
@@ -213,28 +226,5 @@ void				SearchTree<T>::remove			()
 		
 		}
 	}
-}
-
-template<class T>
-void 			SearchTree<T>::inorder			()const
-{			
-	if(Tree<T>::left!=nullptr)Tree<T>::left->inorder();
-	std::cout<<Tree<T>::key<<" ";
-	if(Tree<T>::right!=nullptr)Tree<T>::right->inorder();
-}
-
-template<class T>
-void 			SearchTree<T>::preorder		()const
-{
-	std::cout<<Tree<T>::key<<" ";
-	if(Tree<T>::left!=nullptr)Tree<T>::left->preorder();
-	if(Tree<T>::right!=nullptr)Tree<T>::right->preorder();		
-}
-template<class T>
-void			SearchTree<T>::postorder		()const
-{
-	if(Tree<T>::left!=nullptr)Tree<T>::left->postorder();
-	if(Tree<T>::right!=nullptr)Tree<T>::right->postorder();
-	std::cout<<Tree<T>::key<<" ";
 }
 	

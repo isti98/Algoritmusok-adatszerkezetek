@@ -1,5 +1,7 @@
 
-//Fa adatszerekezetek deklarációja
+#include<iostream>
+
+//Fa adatwzerekezetek deklarációja
 
 #ifndef TREE_H
 #define TREE_H
@@ -24,9 +26,12 @@ class Tree
 		void 				setLeft		(Tree<T>* const l){left=l;}
 		void 				setRight		(Tree<T>* const r){right=r;}
 		void 				set			(const Tree<T>* const t1);
+		void				inorder		()const;
+		void				preorder		()const;
+		void				postorder		()const;
+		Tree<T>*			root			()const;
 		friend std::ostream&		operator<<		(std::ostream& os, Tree<T>* const t);
 		
-		virtual Tree<T>*		root			()const=0;
 		virtual Tree<T>*		next			()const=0;
 		virtual Tree<T>*		max			()const=0;
 		virtual Tree<T>*		min			()const=0;
@@ -34,10 +39,7 @@ class Tree
 		virtual Tree<T>*		search			(const T& k)const=0;
 		virtual Tree<T>*		search_iter		(const T& k)const=0;
 		virtual void			remove			()=0;	
-		virtual void			inorder		()const=0;
-		virtual void			preorder		()const=0;
-		virtual void			postorder		()const=0;
-		
+
 		virtual 			~Tree			(){};		
 	protected:
 		T	 			key;
@@ -56,6 +58,16 @@ std::ostream&		operator<<		(std::ostream& os, Tree<int>* const t)
 	return os;
 }
 template<class T>
+Tree<T>*			Tree<T>::root			()const
+{
+	Tree<T>* current;
+	while(current->getParent()!=nullptr)
+	{
+		current=current->getParent();
+	}
+	return const_cast<Tree<T>*>(current);
+}
+template<class T>
 void			Tree<T>::set		(const Tree<T>* const  t1)
 {
 	if(t1!=nullptr)
@@ -71,79 +83,36 @@ void			Tree<T>::set		(const Tree<T>* const  t1)
 }
 
 template<class T>
-class SearchTree : public Tree<T>
-{
-	public:
-					SearchTree		(){Tree<T>::setLeft(nullptr); Tree<T>::setRight(nullptr);Tree<T>::empty=true;Tree<T>::setParent(nullptr);}
-					SearchTree		(const T& k, Tree<T>* const l, Tree<T>* const r, Tree<T>* const p){Tree<T>::setKey(k); Tree<T>::setLeft(l); Tree<T>::setRight(r); Tree<T>::setParent(p);Tree<T>::empty=false;}
-					//SearchTree		(const T& k, Tree<T>* const l, Tree<T>* const r, Tree<T>* const p): Tree<T>::parent(p), Tree<T>::left(l), Tree<T>::right(r), Tree<T>::key(k){}
-		
-		Tree<T>*		root			()const override;
-		Tree<T>*		next			()const override;
-		Tree<T>*		max			()const override;
-		Tree<T>*		min			()const override;
-		Tree<T>*		search_iter		(const T& k)const;
-		void 			insert			(const T& k) override;
-		Tree<T>*		search			(const T& k)const override;
-		void			remove			() override;
-		void			inorder		()const override;
-		void			preorder		()const override;
-		void			postorder		()const override;
-		
-		
-		 			~SearchTree		(){};
-	protected:
-	
-	private:
-};
+void 			Tree<T>::inorder			()const
+{		
+	if(!Tree<T>::empty)
+	{	
+		if(Tree<T>::left!=nullptr)Tree<T>::left->inorder();
+		std::cout<<Tree<T>::key<<" ";
+		if(Tree<T>::right!=nullptr)Tree<T>::right->inorder();
+	}
+}	
 
 template<class T>
-class Heap : public Tree<T>
+void 			Tree<T>::preorder		()const
 {
-	public:
-					Heap			(){}
-					Heap			(const T& k, Heap<T>* l, Heap<T>* r, Heap<T>* p): Tree<T>::parent(p), Tree<T>::left(l), Tree<T>::right(r), Tree<T>::key(k){}
-		
-		Tree<T>*		root			()const override;
-		Tree<T>*		next			()const override;
-		Tree<T>*		max			()const override;
-		Tree<T>*		min			()const override;
-		Tree<T>*		search_iter		(const T& k)const;
-		void 			insert			(const T& k) override;
-		Tree<T>*		search			(const T& k)const override;
-		void			remove			() override;
-		void			inorder		()const override;
-		void			preorder		()const override;
-		void			postorder		()const override;
-		
-					~Heap			(){};
-	private:
-};
-
+	if(!Tree<T>::empty)
+	{
+		std::cout<<Tree<T>::key<<" ";
+		if(Tree<T>::left!=nullptr)Tree<T>::left->preorder();
+		if(Tree<T>::right!=nullptr)Tree<T>::right->preorder();		
+	}
+}
 template<class T>
-class RaceTree : public Tree<T>
+void			Tree<T>::postorder		()const
 {
-	public:
-					RaceTree		(){}
-					RaceTree		(const T& k, RaceTree<T>* l, RaceTree<T>* r, RaceTree<T>* p): Tree<T>::parent(p), Tree<T>::left(l), Tree<T>::right(r), Tree<T>::key(k){}
-
-		Tree<T>*		root			()const override;
-		Tree<T>*		next			()const override;
-		Tree<T>*		max			()const override;
-		Tree<T>*		min			()const override;
-		Tree<T>*		search_iter		(const T& k)const;
-		void 			insert			(const T& k) override;
-		Tree<T>*		search			(const T& k)const override;
-		void 			remove			() override;
-		void			inorder		()const override;
-		void			preorder		()const override;
-		void			postorder		()const override;
-		
-					~RaceTree		(){};
-	
-	private:	
-
-};
+	if(!Tree<T>::empty)
+	{
+		if(Tree<T>::left!=nullptr)Tree<T>::left->postorder();
+		if(Tree<T>::right!=nullptr)Tree<T>::right->postorder();
+		std::cout<<Tree<T>::key<<" ";
+	}
+}
 
 #endif
 
