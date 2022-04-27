@@ -30,6 +30,7 @@ class Tree
 		void				preorder		()const;
 		void				postorder		()const;
 		Tree<T>*			root			()const;
+		unsigned int 			high			()const;
 		friend std::ostream&		operator<<		(std::ostream& os, Tree<T>* const t);
 		
 		virtual Tree<T>*		next			()const=0;
@@ -113,7 +114,28 @@ void			Tree<T>::postorder		()const
 		std::cout<<Tree<T>::key<<" ";
 	}
 }
-
+template<class T>
+unsigned int		Tree<T>::high			()const
+{
+	if(empty)
+	{
+		throw Exception::EMPTYTREE;
+	}else
+	{	
+		unsigned int result;
+		unsigned int maxLeft=0;
+		unsigned int maxRight=0;
+		if( left != nullptr) maxLeft= 1 + left->high();
+		if( right != nullptr) maxRight = 1 + right->high();
+		if( maxLeft>maxRight)
+		{
+			result=maxLeft;
+		}else{
+			result=maxRight;
+		}
+		return result;
+	}
+}
 #endif
 
 

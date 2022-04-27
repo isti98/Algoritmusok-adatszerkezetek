@@ -11,9 +11,9 @@
 #include "PrQueue.h"
 #include "TwoWayList.h"
 #include "Vector.h"
-//#include "Heap.cpp"
-#include "SearchTree.cpp"
-#include "RaceTree.cpp"
+//#include "Heap.h"
+#include "SearchTree.h"
+#include "RaceTree.h"
 //#include "Map.h"
 #include <map>
 
@@ -66,7 +66,14 @@ TEST_CASE("SEARCHTREE")
 	{
 		st.insert(lista[i]);
 	}
-	
+	SECTION("high")
+	{	
+		SearchTree<int> st1;
+		SearchTree<int> st2(0,nullptr, nullptr , nullptr);
+		CHECK_THROWS(st1.Tree<int>::high());
+		CHECK(st2.Tree<int>::high()==0);
+		CHECK(st.Tree<int>::high()==4);
+	}
 	SECTION("insert + search + search_iter")
 	{
 		int result[] = {5,5,3,10,7,7,2,3,1,7};
