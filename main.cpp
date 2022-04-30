@@ -14,9 +14,9 @@
 //#include "Heap.h"
 #include "HeapArray.h"
 #include "SearchTree.h"
-#include "RaceTree.h"
 //#include "Map.h"
 #include <map>
+#include "Sort.h"
 
 
 using namespace std;
@@ -28,16 +28,11 @@ using namespace std;
 
 int main()
 {	
-	int lista[]={5,7,0,4,6,9,10,1,3,2,8};
-	
-	HeapArray<int> ha(lista, sizeof(lista)/sizeof(int));
-	cout<<&ha<<endl;
-	ha.insert(6);
-	cout<<&ha<<endl;
-	
-	while(!ha.isEmpty())
+	int lista[] = { 123, 23,0, -12, 123,4,5,1,2,5,12,3,12,6,56,4,-42,123,574,63};
+	sortWithHeap<int>(lista, sizeof(lista)/sizeof(int));
+	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
 	{
-		cout<<ha.removeMax()<<" ";
+		cout<<lista[i]<<" ";
 	}
 	cout<<endl;
 	//TODO

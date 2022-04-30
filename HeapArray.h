@@ -17,6 +17,7 @@ class HeapArray : protected Vector<T>
 		void 			insert			(const T& k);
 		
 		friend std::ostream&	operator<<		(std::ostream& os, HeapArray<int>* const ha);
+		friend void 		sortWithHeap		(T* const list, const unsigned int size);
 		
 					~HeapArray		(){};
 	protected:
@@ -29,6 +30,16 @@ class HeapArray : protected Vector<T>
 		
 	private:
 };
+
+template<class T>
+void 				sortWithHeap		(T* const list, const unsigned int size)
+{
+		HeapArray<T> ha(list, size);
+		for(int i=0; i<size; i++)
+		{
+			list[i]=ha.removeMax();
+		}
+}
 
 std::ostream&				operator<<		(std::ostream& os, HeapArray<int>* const ha)
 {
