@@ -31,7 +31,7 @@ class Tree
 		void				postorder		()const;
 		Tree<T>*			root			()const;
 		unsigned int 			high			()const;
-		friend std::ostream&		operator<<		(std::ostream& os, Tree<T>* const t);
+		friend std::ostream&		operator<<		(std::ostream& os, Tree<int>* const t);
 		
 		virtual Tree<T>*		next			()const=0;
 		virtual Tree<T>*		max			()const=0;
@@ -50,6 +50,7 @@ class Tree
 		bool				empty;
 		//unsigned int			high;
 };
+
 std::ostream&		operator<<		(std::ostream& os, Tree<int>* const t)
 {
 	if(t->getParent() != nullptr)	os<<"parent: "<<t->getParent()->getKey()<<std::endl;

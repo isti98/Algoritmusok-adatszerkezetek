@@ -4,6 +4,9 @@
 //VEKTOR adatszerkezet
 // DINAMIKUS TÖMB
 
+#ifndef VECTOR_H
+#define VECTOR_H
+
 template<class T>
 class Vector
 {
@@ -16,7 +19,7 @@ class Vector
 		void 			add			(const T& e, const unsigned int index);
 		void 			remove			(const unsigned int index);
 		unsigned int 		getSize		()const{return size;}
-		T&		operator[]		(const unsigned int index);
+		T&			operator[]		(const unsigned int index);
 		
 	protected:
 		T*			data;
@@ -90,3 +93,5 @@ T&					Vector<T>::operator[]			(const unsigned int index)
 {
 	return data[index];
 }	
+
+#endif

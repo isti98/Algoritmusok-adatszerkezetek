@@ -12,6 +12,7 @@
 #include "TwoWayList.h"
 #include "Vector.h"
 //#include "Heap.h"
+#include "HeapArray.h"
 #include "SearchTree.h"
 #include "RaceTree.h"
 //#include "Map.h"
@@ -20,14 +21,25 @@
 
 using namespace std;
 
-//#define NORMALMODE
+#define NORMALMODE
 #ifdef NORMALMODE
 
-using namespace std;
+using namespace std;	
 
 int main()
 {	
-
+	int lista[]={5,7,0,4,6,9,10,1,3,2,8};
+	
+	HeapArray<int> ha(lista, sizeof(lista)/sizeof(int));
+	cout<<&ha<<endl;
+	ha.insert(6);
+	cout<<&ha<<endl;
+	
+	while(!ha.isEmpty())
+	{
+		cout<<ha.removeMax()<<" ";
+	}
+	cout<<endl;
 	//TODO
 }
 

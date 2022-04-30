@@ -1,6 +1,8 @@
 
 //Standard library implementaion
 
+/*
+
 template < typename _Key, typename _Ty, typename _Cmp = std::less<_Key>, typename _Alloc = std::allocator< std::pair<const _Key, _Ty> > > class map
 {
 public:
@@ -123,3 +125,5 @@ private:
     pointer data_;
     size_type size_, capacity_;
 };
+
+*/
