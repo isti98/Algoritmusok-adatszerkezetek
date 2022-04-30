@@ -58,19 +58,9 @@ void				HeapArray<T>::sink			(const unsigned int index)
 	{
 		if(j+1<Vector<T>::getSize() && Vector<T>::data[j]<Vector<T>::data[j+1])
 		{
-			if(Vector<T>::data[j+1]>Vector<T>::data[i])
-			{
-				j=j+1;
-				T sgd=Vector<T>::data[i];
-				Vector<T>::data[i]=Vector<T>::data[j];
-				Vector<T>::data[j]=sgd;
-				i=j;
-				j=(j+1)*2-1;
-			}else{
-				lesser=false;
-			}
+			j=j+1;
 		}
-		else if(Vector<T>::data[j]>Vector<T>::data[i]){
+		if(Vector<T>::data[j]>Vector<T>::data[i]){
 			T sgd=Vector<T>::data[i];
 			Vector<T>::data[i]=Vector<T>::data[j];
 			Vector<T>::data[j]=sgd;		
