@@ -1,6 +1,4 @@
 
-#include<iostream>
-
 //Rendezések
 
 #ifndef SORT
@@ -49,7 +47,7 @@ class Sort
 	public:
 					Sort			(Sortable<T, S>* so, Series<T, Se>* se):sortable(so), series(se){}
 		void			bubbleSort		();
-		//void 		insertSort		();
+		void 			insertSort		();
 		//void			quickSort		();
 							
 	protected:
@@ -76,6 +74,29 @@ void 		Sort<T, S ,Se>::bubbleSort		()
 	}
 }
 
+template< class T, class S, class Se>
+void 		Sort<T, S, Se>::insertSort		()
+{
+	for(unsigned int i=1; i<series->getSize(); i++)
+	{
+		std::cout<<"first"<<std::endl;
+		if(sortable->lesser(series->member(i),series->member(i-1)))
+		{
+			T x=series->member(i);
+			series->member(i)=series->member(i-1);
+			unsigned int j=i-2;
+			std::cout<<"second"<<std::endl;
+			//LUSTA KIÉRTÉKELÉSSEL MÜKÖDNE DE ÍGY J=0 NÁL SEGMANTATION FAULT ADD A LESSER FÜGGVÉNY :(
+			while( j>=0 && sortable->lesser(x,series->member(j)))
+			{
+				std::cout<<"third"<<std::endl;
+				series->member(j+1)=series->member(j);
+				j--;
+			}
+			series->member(j+1)=x;	
+		}
+	}
+}
 
 
 #endif

@@ -108,7 +108,8 @@ int main()
 	CitySortable c_so;
 	CitySeries c_se(&cities);
 	Sort<City, unsigned int, Vector<City>> sorting(&c_so, &c_se);
-	sorting.bubbleSort();
+	//sorting.bubbleSort();
+	sorting.insertSort();
 	
 	for(int i=0; i<cities.getSize(); i++)
 	{
