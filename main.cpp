@@ -26,15 +26,96 @@ using namespace std;
 
 using namespace std;	
 
+class City
+{
+	public:
+		City(const int p, const string& i):pop(p),ID(i){}
+		unsigned int pop;
+		string ID;
+		
+		friend ostream& 		operator<<		(ostream& os, const City& c){os<<c.pop<<c.ID; return os;}
+};
+
+class CitySortable : public Sortable<City, unsigned int>
+{
+	public:	
+					CitySortable		(){}	
+	protected:
+		unsigned int  		sortBy			(const City& t)const override
+								{return t.pop;}
+		bool 			lessThan		(const unsigned int& s1, const unsigned int& s2)const override
+								{return s1<s2;}
+};
+class CitySeries : public Series<City, Vector<City>>
+{
+	public:
+					CitySeries		(Vector<City>* d)
+					{ Series<City, Vector<City>>::data=d;}
+		City&			member			(const unsigned int index)override
+					{return (*Series<City, Vector<City>>::data)[index];}
+		unsigned int		getSize		()const override
+					{return Series<City, Vector<City>>::data->getSize();}	
+}; 
+
+class Matrix{
+	public:
+		Matrix(int i, string j){x=i; y=j;}
+		int x;
+		string y;
+};
+
 int main()
 {	
-	int lista[] = { 123, 23,0, -12, 123,4,5,1,2,5,12,3,12,6,56,4,-42,123,574,63};
-	sortWithHeap<int>(lista, sizeof(lista)/sizeof(int));
-	for(int i=0; i<sizeof(lista)/sizeof(int); i++)
+	Vector<City> cities;
+	
+	City m1(123,"a");
+	City m2(14,"b");
+	City m3(21231,"c");
+	City m4(454,"d");
+	City m5(545,"aa");
+	City m6(61264,"bb");
+	City m7(7,"cc");
+	City m8(0,"dd");
+	City m9(34,"aaa");
+	City m10(55555,"bbb");
+	City m11(1204,"ccc");
+	City m12(1142,"ddd");
+	City m13(21132,"aaaa");
+	City m14(423,"bbbb");
+	City m15(534,"cccc");
+	cities.add(m1,0);
+	cities.add(m2,1);
+	cities.add(m3,2);
+	cities.add(m4,3);
+	cities.add(m5,0);
+	cities.add(m6,0);
+	cities.add(m7,1);
+	cities.add(m8,2);
+	cities.add(m9,3);
+	cities.add(m10,0);
+	cities.add(m11,0);
+	cities.add(m12,1);
+	cities.add(m13,2);
+	cities.add(m14,3);
+	cities.add(m15,0);
+
+	for(int i=0; i<cities.getSize(); i++)
 	{
-		cout<<lista[i]<<" ";
+		cout<<cities[i].pop<<" "<<cities[i].ID<<" ";
 	}
 	cout<<endl;
+	
+	CitySortable c_so;
+	CitySeries c_se(&cities);
+	Sort<City, unsigned int, Vector<City>> sorting(&c_so, &c_se);
+	sorting.bubbleSort();
+	
+	for(int i=0; i<cities.getSize(); i++)
+	{
+		cout<<cities[i].pop<<" "<<cities[i].ID<<" ";
+	}
+	cout<<endl;
+		
 	//TODO
 }
 
