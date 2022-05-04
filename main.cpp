@@ -68,36 +68,36 @@ int main()
 {	
 	Vector<City> cities;
 	
-	City m1(123,"a");
+	City m1(15,"a");
 	City m2(14,"b");
-	City m3(21231,"c");
-	City m4(454,"d");
-	City m5(545,"aa");
-	City m6(61264,"bb");
-	City m7(7,"cc");
-	City m8(0,"dd");
-	City m9(34,"aaa");
-	City m10(55555,"bbb");
-	City m11(1204,"ccc");
-	City m12(1142,"ddd");
-	City m13(21132,"aaaa");
-	City m14(423,"bbbb");
-	City m15(534,"cccc");
-	cities.add(m1,0);
-	cities.add(m2,1);
-	cities.add(m3,2);
-	cities.add(m4,3);
-	cities.add(m5,0);
-	cities.add(m6,0);
-	cities.add(m7,1);
-	cities.add(m8,2);
-	cities.add(m9,3);
-	cities.add(m10,0);
-	cities.add(m11,0);
-	cities.add(m12,1);
-	cities.add(m13,2);
-	cities.add(m14,3);
-	cities.add(m15,0);
+	City m3(13,"c");
+	City m4(12,"d");
+	City m5(11,"aa");
+	City m6(10,"bb");
+	City m7(9,"cc");
+	City m8(8,"dd");
+	City m9(7,"aaa");
+	City m10(6,"bbb");
+	City m11(5,"ccc");
+	City m12(4,"ddd");
+	City m13(3,"aaaa");
+	City m14(2,"bbbb");
+	City m15(1,"cccc");
+	cities.add(m1,cities.getSize());
+	cities.add(m2,cities.getSize());
+	cities.add(m3,cities.getSize());
+	cities.add(m4,cities.getSize());
+	cities.add(m5,cities.getSize());
+	cities.add(m6,cities.getSize());
+	cities.add(m7,cities.getSize());
+	cities.add(m8,cities.getSize());
+	cities.add(m9,cities.getSize());
+	cities.add(m10,cities.getSize());
+	cities.add(m11,cities.getSize());
+	cities.add(m12,cities.getSize());
+	cities.add(m13,cities.getSize());
+	cities.add(m14,cities.getSize());
+	cities.add(m15,cities.getSize());
 
 	for(int i=0; i<cities.getSize(); i++)
 	{
@@ -109,7 +109,8 @@ int main()
 	CitySeries c_se(&cities);
 	Sort<City, unsigned int, Vector<City>> sorting(&c_so, &c_se);
 	//sorting.bubbleSort();
-	sorting.insertSort();
+	//sorting.insertSort();
+	sorting.quickSort(0,cities.getSize()-1);
 	
 	for(int i=0; i<cities.getSize(); i++)
 	{

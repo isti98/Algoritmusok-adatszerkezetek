@@ -1,5 +1,7 @@
 
 #include "HeapArray.h"
+#include <cstdlib>
+#include <iostream>
 
 //Rendezések
 
@@ -50,7 +52,7 @@ class Sort
 					Sort			(Sortable<T, S>* so, Series<T, Se>* se):sortable(so), series(se){}
 		void			bubbleSort		();
 		void 			insertSort		();
-		//void			quickSort		();
+		void			quickSort		(const unsigned int begin, const unsigned int end);
 		//void			heapSort		();
 							
 	protected:
@@ -87,6 +89,7 @@ void 		Sort<T, S, Se>::insertSort		()
 			T x=series->member(i);
 			series->member(i)=series->member(i-1);
 			int j=i-2;
+
 			while( j>=0 && sortable->lesser(x,series->member(j)))
 			{
 				series->member(j+1)=series->member(j);
@@ -97,5 +100,51 @@ void 		Sort<T, S, Se>::insertSort		()
 	}
 }
 
+template< class T, class S, class Se>
+void		Sort<T, S, Se>::quickSort		(const unsigned int begin, const unsigned int end)
+{
+	if(begin>=end)
+	{
+		//Skip
+	}else
+	{
+		unsigned int random= std::rand() % (end-begin+1)+begin;
+		T x=series->member(random);
+		unsigned int i=begin;
+		unsigned int j=end;
+		unsigned int splitAt;
+		while(i<j)
+		{
+			if(!sortable->lesser(series->member(i),x))
+			{
+				while( j>i && !sortable->lesser(series->member(j),x))
+				{
+					j--;
+				}
+				if(j>i)
+				{
+					T sgd=series->member(i);
+					series->member(i)=series->member(j);
+					series->member(j)=sgd;
+					j--;
+				}
+			}else
+			{
+				i++;
+			}
+		}
+		if(i>=j)
+		{
+			if(sortable->lesser(series->member(i),x))
+			{
+				splitAt=i;
+			}else{
+				splitAt=i-1;
+			}
+		}
+		quickSort(begin, splitAt);
+		quickSort(splitAt+1, end);
+	}
+}
 
 #endif
