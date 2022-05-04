@@ -24,10 +24,7 @@ class HeapArray : protected Vector<T>
 		
 					~HeapArray		(){};
 	protected:
-		//T*			data;
-		//unsigned int		size;
-		//unsigned int		maxSize;
-		
+
 		void 			sink			(const unsigned int index);
 		void 			lift			(const unsigned int index);	
 		

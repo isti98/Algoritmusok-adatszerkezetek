@@ -11,7 +11,7 @@ template<class T>
 class Vector
 {
 	public:
-					Vector			():size(0), maxSize(1){data=(T*)malloc(sizeof(T));}
+					Vector			():size(0), maxSize(3){data=(T*)malloc(sizeof(T)*3);}
 					Vector			(const T* const data, const unsigned int size);
 		
 		typedef enum Exception {OUTOFINDEX} Exception;

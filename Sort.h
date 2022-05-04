@@ -53,7 +53,11 @@ class Sort
 		void			bubbleSort		();
 		void 			insertSort		();
 		void			quickSort		(const unsigned int begin, const unsigned int end);
-		//void			heapSort		();
+		void			heapSort		();
+		//void 		mergeSort		(const unsigned int begin, const unsigned int end);
+		//void 		countingSort		();
+		//void 		dishSort		();
+		
 							
 	protected:
 		Sortable<T,S>*		sortable;
@@ -147,4 +151,25 @@ void		Sort<T, S, Se>::quickSort		(const unsigned int begin, const unsigned int e
 	}
 }
 
+template< class T, class S, class Se>
+void		Sort<T,S,Se>::heapSort			()
+{	
+	HeapArray<T> ha;
+	for(unsigned int i=0; i<series->getSize(); i++)
+	{
+		ha.insert(series->member(i));
+	}
+	for(unsigned int i=0; !ha.isEmpty(); i++)
+	{
+		series->member(i)=ha.removeMax();
+	}
+}
+
+/*
+template<class T, class S, class Se>
+void 		Sort<T, S, Se>::			()
+{
+
+}
+*/
 #endif

@@ -32,8 +32,10 @@ class City
 		City(const int p, const string& i):pop(p),ID(i){}
 		unsigned int pop;
 		string ID;
-		
+	
 		friend ostream& 		operator<<		(ostream& os, const City& c){os<<c.pop<<c.ID; return os;}
+		friend bool 			operator<		(const City& c1, const City& c2){return c1.pop<c2.pop;}
+		friend bool 			operator>		(const City& c1, const City& c2){return c1.pop>c2.pop;}
 };
 
 class CitySortable : public Sortable<City, unsigned int>
@@ -110,14 +112,22 @@ int main()
 	Sort<City, unsigned int, Vector<City>> sorting(&c_so, &c_se);
 	//sorting.bubbleSort();
 	//sorting.insertSort();
-	sorting.quickSort(0,cities.getSize()-1);
+	//sorting.quickSort(0,cities.getSize()-1);
+	//sorting.heapSort();
+	
 	
 	for(int i=0; i<cities.getSize(); i++)
 	{
 		cout<<cities[i].pop<<" "<<cities[i].ID<<" ";
 	}
 	cout<<endl;
-		
+/*	
+	HeapArray<City> ha;
+	for(int i=0; i<cities.getSize() ; i++)
+	{
+		ha.insert(cities[i]);
+	}
+*/		
 	//TODO
 }
 
