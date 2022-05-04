@@ -4,6 +4,9 @@
 #include "Vector.h"
 #include <iostream>
 
+#ifndef HEAPARRAY_H
+#define HEAPARRAY_H
+
 template<class T>
 class HeapArray : protected Vector<T>
 {
@@ -119,3 +122,5 @@ T				HeapArray<T>::removeMax			()
 	sink(0);
 	return max;
 }
+
+#endif
