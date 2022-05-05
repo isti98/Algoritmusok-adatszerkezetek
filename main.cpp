@@ -17,6 +17,7 @@
 //#include "Map.h"
 #include <map>
 #include "Sort.h"
+#include "Hashing.h"
 
 
 using namespace std;
@@ -26,108 +27,9 @@ using namespace std;
 
 using namespace std;	
 
-class City
-{
-	public:
-		City(const int p, const string& i):pop(p),ID(i){}
-		unsigned int pop;
-		string ID;
-	
-		friend ostream& 		operator<<		(ostream& os, const City& c){os<<c.pop<<c.ID; return os;}
-		friend bool 			operator<		(const City& c1, const City& c2){return c1.pop<c2.pop;}
-		friend bool 			operator>		(const City& c1, const City& c2){return c1.pop>c2.pop;}
-};
-
-class CitySortable : public Sortable<City, unsigned int>
-{
-	public:	
-					CitySortable		(){}	
-	protected:
-		unsigned int  		sortBy			(const City& t)const override
-								{return t.pop;}
-		bool 			lessThan		(const unsigned int& s1, const unsigned int& s2)const override
-								{return s1<s2;}
-};
-class CitySeries : public Series<City, Vector<City>>
-{
-	public:
-					CitySeries		(Vector<City>* d)
-					{ Series<City, Vector<City>>::data=d;}
-		City&			member			(const unsigned int index)override
-					{return (*Series<City, Vector<City>>::data)[index];}
-		unsigned int		getSize		()const override
-					{return Series<City, Vector<City>>::data->getSize();}	
-}; 
-
-class Matrix{
-	public:
-		Matrix(int i, string j){x=i; y=j;}
-		int x;
-		string y;
-};
-
 int main()
 {	
-	Vector<City> cities;
 	
-	City m1(15,"a");
-	City m2(14,"b");
-	City m3(13,"c");
-	City m4(12,"d");
-	City m5(11,"aa");
-	City m6(10,"bb");
-	City m7(9,"cc");
-	City m8(8,"dd");
-	City m9(7,"aaa");
-	City m10(6,"bbb");
-	City m11(5,"ccc");
-	City m12(4,"ddd");
-	City m13(3,"aaaa");
-	City m14(2,"bbbb");
-	City m15(1,"cccc");
-	cities.add(m1,cities.getSize());
-	cities.add(m2,cities.getSize());
-	cities.add(m3,cities.getSize());
-	cities.add(m4,cities.getSize());
-	cities.add(m5,cities.getSize());
-	cities.add(m6,cities.getSize());
-	cities.add(m7,cities.getSize());
-	cities.add(m8,cities.getSize());
-	cities.add(m9,cities.getSize());
-	cities.add(m10,cities.getSize());
-	cities.add(m11,cities.getSize());
-	cities.add(m12,cities.getSize());
-	cities.add(m13,cities.getSize());
-	cities.add(m14,cities.getSize());
-	cities.add(m15,cities.getSize());
-
-	for(int i=0; i<cities.getSize(); i++)
-	{
-		cout<<cities[i].pop<<" "<<cities[i].ID<<" ";
-	}
-	cout<<endl;
-	
-	CitySortable c_so;
-	CitySeries c_se(&cities);
-	Sort<City, unsigned int, Vector<City>> sorting(&c_so, &c_se);
-	//sorting.bubbleSort();
-	//sorting.insertSort();
-	//sorting.quickSort(0,cities.getSize()-1);
-	//sorting.heapSort();
-	
-	
-	for(int i=0; i<cities.getSize(); i++)
-	{
-		cout<<cities[i].pop<<" "<<cities[i].ID<<" ";
-	}
-	cout<<endl;
-/*	
-	HeapArray<City> ha;
-	for(int i=0; i<cities.getSize() ; i++)
-	{
-		ha.insert(cities[i]);
-	}
-*/		
 	//TODO
 }
 

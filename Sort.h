@@ -5,12 +5,12 @@
 
 //Rendezések
 
-#ifndef SORT
-#define SORT
+#ifndef SORT_H
+#define SORT_H
 
 //Sorable osztály , Absztrakt osztály
 //class T	-	A rendezhető rekordok típusa
-//class S	-	A rendezhető rekordok egyik mezője, ami alapján a rendezés definálva van.
+//class S	-	A rendezhető rekordok egyik mezője vagy generált értéke, ami alapján a rendezés definálva van.
 template<class T, class S> 
 class Sortable
 {
@@ -37,6 +37,7 @@ class Series
 					Series			(){}
 		virtual T&		member			(const unsigned int index)=0;
 		virtual unsigned int	getSize		()const=0;	
+		virtual 		~Series		(){}
 	protected:
 		Se*			data;		
 	private:
@@ -53,9 +54,8 @@ class Sort
 		void			bubbleSort		();
 		void 			insertSort		();
 		void			quickSort		(const unsigned int begin, const unsigned int end);
-		void			heapSort		();
-		//void 		mergeSort		(const unsigned int begin, const unsigned int end);
-		//void 		countingSort		();
+		//void			heapSort		();
+		//void	 		countSort		(const T* values, const unsigned int size);
 		//void 		dishSort		();
 		
 							
@@ -150,7 +150,7 @@ void		Sort<T, S, Se>::quickSort		(const unsigned int begin, const unsigned int e
 		quickSort(splitAt+1, end);
 	}
 }
-
+/*
 template< class T, class S, class Se>
 void		Sort<T,S,Se>::heapSort			()
 {	
@@ -163,13 +163,6 @@ void		Sort<T,S,Se>::heapSort			()
 	{
 		series->member(i)=ha.removeMax();
 	}
-}
-
-/*
-template<class T, class S, class Se>
-void 		Sort<T, S, Se>::			()
-{
-
 }
 */
 #endif

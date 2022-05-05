@@ -21,6 +21,8 @@ class Vector
 		unsigned int 		getSize		()const{return size;}
 		T&			operator[]		(const unsigned int index);
 		
+					~Vector		(){free(data);}
+		
 	protected:
 		T*			data;
 		unsigned int		size;
